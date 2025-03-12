@@ -1,0 +1,24 @@
+{
+  "name": "nodenab",
+  "version": "1.0.0",
+  "description": "A Node.js WebSocket server (without an HTTP server) using Socket.io to provide real-time updates.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diskoze/nodenab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diskoze/nodenab/issues"
+  },
+  "homepage": "https://github.com/diskoze/nodenab#readme",
+  "dependencies": {
+    "ws": "^8.18.1"
+  }
+}
