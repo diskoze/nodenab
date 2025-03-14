@@ -4,22 +4,23 @@ const clients = new Set();
 let lastUpdate = 0;
 let delayedMessage = null;
 let delayTimeout = null;
+let latestJackpotState = null; // Store the latest jackpot message
 
 function handleTCPConnection(socket) {
     console.log('PHP API connected');
-    
+
     socket.on('data', (data) => {
         const now = Date.now();
         const message = data.toString().trim();
+        latestJackpotState = message; // Update the stored jackpot state
+
         const elapsedTime = now - lastUpdate;
-        console.log(`Received from PHP: ${message}`);
 
         if (elapsedTime >= 5000) {
-            // If 5 seconds have passed, send immediately
             lastUpdate = now;
+            console.log(`Received from PHP: ${message}`);
             broadcastToClients(message);
         } else {
-            // If less than 5 seconds, schedule it for later
             delayedMessage = message;
             const remainingTime = 5000 - elapsedTime;
 
@@ -45,4 +46,8 @@ function broadcastToClients(message) {
     });
 }
 
-module.exports = { handleTCPConnection, clients };
+function getLatestJackpotState() {
+    return latestJackpotState; // Provide access to the latest jackpot state
+}
+
+module.exports = { handleTCPConnection, clients, getLatestJackpotState };
